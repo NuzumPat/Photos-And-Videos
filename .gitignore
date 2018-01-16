@@ -1,0 +1,9 @@
+/.settings
+/.vscode
+/node_modules
+app.js
+package.json
+/bin
+/public
+/routes
+/views
