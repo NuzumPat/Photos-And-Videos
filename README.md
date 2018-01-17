@@ -6,6 +6,7 @@ You store your photos and videos in the directory (myWebsite) in the root of you
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
 ; package.json used to install Node.JS modules
 ; Node.js Command Prompt at this directory
 npm install
@@ -17,7 +18,7 @@ What things you need to install the software and how to install them
 ```
 Give examples
 ```
-
+; You will need a 
 ### Installing
 
 A step by step series of examples that tell you have to get a development env running
@@ -39,6 +40,11 @@ End with an example of getting some data out of the system or using it for a lit
 ## Running the tests
 
 Explain how to run the automated tests for this system
+; Client Browser
+http://localhost:3000
+; UserName & Password for Download Menu
+;   UserName: mysite10
+;   Password: 10
 
 ### Break down into end to end tests
 
