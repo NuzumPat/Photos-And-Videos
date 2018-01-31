@@ -43,8 +43,8 @@ Explain how to run the automated tests for this system
 ; Client Browser
 http://localhost:3000
 ; UserName & Password for Download Menu
-;   UserName: mysite10
-;   Password: 10
+;   UserName: mysite??
+;   Password: ??
 
 ### Break down into end to end tests
 
@@ -68,9 +68,10 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Visual Studio Code](https://code.visualstudio.com/) - Development Platform
+* [CloudRail](https://github.com/CloudRail/cloudrail-si-node-sdk) - Interface s/w between web server and cloud services (OneDrive, DropBox, Box, and Drive)
+* [Magnific-Popup](https://github.com/dimsemenov/Magnific-Popup) - Displays Photo Galaries
+* [jPlayer](https://github.com/jplayer/jPlayer) - Plays Video files with play list
 
 ## Contributing
 
