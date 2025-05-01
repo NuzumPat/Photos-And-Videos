@@ -1,7 +1,8 @@
 # Your Photos And Videos
 
-This Project is for Release 2 of “Cloud Services Photos & Videos” website. The following websites were developed using Release 1 (www.MySite10.com, www.JanetAndPat.com, www.WintersvilleHS.com). The purpose of this website is to display the photos and videos you have in your Cloud Services (OneDrive, Drive, DropBox, Box).
-You store your photos and videos in the directory (myWebsite) in the root of your Cloud Service(s). You create the folder names which turn into menu selections. You then perform one of the functions in the Download page, that download these photos and videos to your website. Then anyone you give the optional username/password to could view them by visiting your website. 
+This Project is for the “Cloud Services Photos & Videos” webserver. The following websites were developed using this webserver (www.JanetAndPat.com, www.WintersvilleHS.com).
+The purpose of this webserver is to display the photos and videos you have in your Cloud Services (OneDrive, Drive, DropBox, Box).
+You store your photos and videos in the directory (myWebsite) in the root of your Cloud Service(s). You create the folder names which turn into menu selections. You then perform one of the functions in the Download page, that download these photos and videos to your website. Then anyone you give the optional username/password to could view them by visiting your website.  
 
 ## Getting Started
 
