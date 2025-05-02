@@ -1,0 +1,47 @@
+extends layout
+block content
+
+  if(typeof msg !== 'undefined')
+    if(!!err)
+      div(class='msgbox err') #{msg}
+    else
+      div(class='msgbox success') #{msg}
+
+  div#wrapper2
+    div#banner
+      include includes/slider.pug
+    div#subbanner
+      include ../public/images/cs/txt_subbanner.pug
+    div#contents
+      include ../public/images/cs/txt_contact_contents.pug
+      div#contact-form
+        form(id='contactus',name='contactus', method='post', action='/contact')
+          ol
+            li
+              label(for='first_name') First Name
+              input#first_name(type='text', name='first_name')
+            li
+              label(for='last_name') Last Name
+              input#last_name(type='text', name='last_name')
+            li
+              label(for='email') eMail
+              input#email(type='text', name='email')
+            li
+              label(for='message') Comments
+              textarea#message(name='message', cols='45', rows='5')
+            li
+              input#submit.submit(name='submit', type='submit', value='Send', onclick='showProgressCursor();')
+    div#rightside
+      div#contact-rightsidebar
+        p Menu Items:
+        li: a.navigation(href='/contact/pdf', data-level='displayUserGuide') Display User's Guide
+    include includes/footer.pug
+  script.
+    function showProgressCursor()
+    {
+      $("body").css({     // ??? 07/11/2017 Disable everything so <Submit> can only be pressed once ???
+        "pointer-events": "none",
+        "cursor": "default"
+      });
+      $("body").css("cursor", "progress");
+    }

@@ -1,0 +1,29 @@
+extends layoutInitialize
+block content
+  div#wrapper2
+    div#contents
+      h1 &nbsp;Download from cloud service to this Website
+
+      form#tableForm(action='/getCloudService', method='get')
+        select.selectpicker(data-style='btn-info', name='selectphotos', id='selectphotos')
+          optgroup(label='Select Photos Cloud Service')
+            option(name='', value='0') Select table
+            option(name='OneDrive', value='1') OneDrive
+            option(name='Drive', value='2') Drive
+            option(name'DropBox', value='3') DropBox
+            option(name='Box', value='4') Box
+        select.selectpicker(data-style='btn-info', name='selectvideos', id='selectvideos')
+          optgroup(label='Select Video Cloud Service')
+            option(name='', value='0') Select table
+            option(name='OneDrive', value='1') OneDrive
+            option(name='Drive', value='2') Drive
+            option(name='DropBox', value='3') DropBox
+            option(name='Box', value='4') Box
+        input(type='submit')
+    div#rightside
+      div#videos-rightsidebar
+        p Download:
+        ul
+          //include includes/init_download_js.pug
+          include includes/init_rightside_nav.pug
+    include includes/footer.pug

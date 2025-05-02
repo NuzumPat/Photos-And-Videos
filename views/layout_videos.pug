@@ -1,0 +1,46 @@
+doctype html
+html
+  //- Super layout that everything is going to extend fr0m
+  //- block means this section can be changes
+  block head
+    title Photos And Videos
+
+    include includes/favicon.pug
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(type='text/css', href='/skin/pink.flag/jplayer.pink.flag.css', rel='stylesheet')
+
+    //script(type='text/javascript' src='/js/jquery.min.js')  // ??? 07/11/2017 Removed line 13 ???
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    script(type='text/javascript', src='/js/jquery.min.js')
+    script(type='text/javascript', src='/js/jquery.jplayer.min.js')
+    script(type='text/javascript', src='/js/jplayer.playlist.min.js')
+
+    script(type='text/javascript').
+      $(document).ready(function(){
+      new jPlayerPlaylist({
+      jPlayer: "#jquery_jplayer_1",
+      cssSelectorAncestor: "#jp_container_1"
+      }, [
+      ], {
+      swfPath: "/js/jplayer",
+      supplied: "webmv, ogv, m4v",
+      useStateClassSkin: true,
+      autoBlur: false,
+      smoothPlayBar: true,
+      keyEnabled: true
+      });
+      $.getScript("/js/add_video.js", function(){
+        //alert("Script loaded and executed.");
+      });
+      });
+
+  body
+  div#wrapper
+    div#top
+      // 10/13/17 div#logo
+      // 10/13/17 img(src="images/cs/logo.jpg" height="106" width="100")
+      img(src="images/cs/banner.svg" height="113" width="900")
+      include includes/topnav.pug
+block content
+

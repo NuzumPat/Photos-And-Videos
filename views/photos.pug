@@ -1,0 +1,24 @@
+//- This page displays the photos in a Gallery Style and created menu item on the right side,
+//- based on the folder names. 
+//- The only way to get to this page is when selecting "photos" from the top level 
+//- navigation bar (Home, About, photos, videos, and Contact)
+//- You will stay on this page as long as you keep selecting menu item from the right-side menus.
+//- 
+extends layout_photos
+block content
+  div#wrapper2
+    div#altnav
+      ul.navigation-menu
+        include includes/altnav.pug
+        include includes/navjs.pug
+    div#contents
+      h1 Photos Page
+      h3 Below is a Photos Gallery from the menu you selected. Additional menus are on the left menu bar. Menus you came from are in the alternate navigation bar above.
+      .zoom-gallery
+        include includes/include.pug
+    div#rightside
+      div#videos-rightsidebar
+        p Menu Items:
+        ul.navigation-menu
+          include includes/rightsidenav.pug
+    include includes/footer.pug

@@ -1,0 +1,30 @@
+doctype html
+html
+  //- Super layout that everything is going to extend fr0m
+  //- block means this section can be changes
+  block head
+    title Photos And Videos
+
+    include includes/favicon.pug
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    //link(rel='stylesheet' href='/stylesheets/magnific-popup.css') // ??? 07/11/2017 Removed line 13 ???
+    script(type='text/javascript', src='/js/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    //script(src="/js/jquery.magnific-popup.min.js")  // ??? 07/11/2017 Removed line 13 ???
+    //script(src="/js/jquery.magnific-popup.js")  // ??? 07/11/2017 Removed line 13 ???
+    //script.  // ??? 07/11/2017 Removed line 13 ???
+      jQuery(document).ready(function ($) {
+      var options = { $AutoPlay: true };
+      var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+      });
+  include includes/initialize_cloud_service.pug 
+  body
+  div#wrapper
+    div#top
+      // 10/13/17 div#logo
+      // 10/13/17 img(src="images/cs/logo.jpg" height="106" width="100")
+      img(src="images/cs/banner.svg" height="113" width="900")
+      include includes/topnav.pug
+block content
+

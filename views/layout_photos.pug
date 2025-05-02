@@ -1,0 +1,60 @@
+// ??? 07/11/2017 ??? Copy of layout.pug, replaced this one in photos.pg, removed unneeded stuff
+doctype html
+html
+  //- Super layout that everything is going to extend fr0m
+  //- block means this section can be changes
+  block head
+    title Photos And Videos
+    
+    include includes/favicon.pug
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/magnific-popup.css')
+    script(type='text/javascript' src='/js/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    script(src="/js/jquery.magnific-popup.min.js")
+    //script(src="/js/jquery.magnific-popup.js")  // ??? 07/11/2017 Removed not needed ???
+    //script(src='/js/jssor.slider.mini.js')      // ??? 07/11/2017 Removed not needed ???
+    //script(src='/js/socket.io.js')              // ??? 07/11/2017 Removed not needed ???
+    script.
+      $(document).ready(function() {
+        $('.zoom-gallery').magnificPopup({
+          delegate: 'a',
+          type: 'image',
+          closeOnContentClick: false,
+          closeBtnInside: false,
+          mainClass: 'mfp-with-zoom mfp-img-mobile',
+          image: {
+            verticalFit: true,
+            titleSrc: function(item) {
+            return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">image source</a>';
+            }
+          },
+          gallery: {
+            enabled: true
+          },
+          zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+              return element.find('img');
+            }
+          }
+          
+        });
+      });
+    | &#x9;
+    //script.  // ??? 07/11/2017 Removed because not needed ???
+      jQuery(document).ready(function ($) {
+      var options = { $AutoPlay: true };
+      var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+      });
+  body
+  div#wrapper
+    div#top
+      // 10/13/17 div#logo
+      // 10/13/17 img(src="images/cs/logo.jpg" height="106" width="100")
+      img(src="images/cs/banner.svg" height="113" width="900")
+      include includes/topnav.pug
+block content
+

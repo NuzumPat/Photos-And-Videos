@@ -1,0 +1,320 @@
+﻿/********************************************************************************************/
+/* File = style.css (base-style.css) 														*/
+/* Developer: videos Nuzum 																	*/
+/* Function: This file contains the default CSS style setting for my Website development 	*/
+/********************************************************************************************/
+
+
+/* Full Reset - Needs to be the first thing in you stylesheet because of presidance */
+/*              It will have the lowest priority because it is farest away from HTML elements */
+
+html, body {margin: 0;padding: 0;border: 0;
+		background: transparent ; font-size: 10px;}
+div, span, article, aside, footer, header, hgroup, nav, section,
+h1, h2, h3, h4, h5, h6, p, blockquote, a, ol, ul, li,
+table, tr, th, td, tbody, tfoot, thead {
+	margin:0;
+	padding:0;
+	border:0;
+	vertical-align:baseline;
+	background:transparent;
+	}
+	
+img {margin: 0; padding: 0; border: 0;}
+
+table	{ border-collapse:collapse; border-spacing:0;}
+	
+input, select, textarea, form, fieldset {
+	margin: 0; padding: 0; border: 0;}
+	
+article, aside, dialog, figure, footer, header, hgroup, nav, section {
+	display: block; }
+
+h1, h2, h3, h4, h5, h6, p, li, blockquote, td, th, a, caption, em, strong, strike {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	font-weight: normal;
+	font-style:normal;
+	line-height: 100%;
+	text-indent: 0;
+	text-decoration:none;
+	text-align: left;
+	color: #000;
+	}
+	
+ol, ul, { list-style: none;}
+
+/*************** End Full Reset **************************************/
+
+/* Global */
+html
+/* Naje background of everything grey */
+body	{background:#eeeeee;}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {font-weight:bold; color:#000;}
+h1 {font-size:24px;}
+h2 {font-size:20px;}
+h3 {font-size:16px;}
+h4 {font-size:14px;}
+h5 {font-size:14px;}
+h6 {font-size:14px;}
+
+h1 img,h2 img , h3 img, h4 img, h5 img, h6 img {margin:0;}
+
+/* Text empty-cells: ;ements */
+p			{color:#000; font-size: 12px; line-height: 150%;}
+p	.left	{margin: 1.5em 1.5em 1.5em 0; padding:0;}
+p	.right	{margin: 1.5em 0 1.5em 1.5em; padding:0;}
+
+a
+a:link		{color: #00f;}
+/* a:visited	Since Photos and Videos Pages are just one each, the visited page is always the same page  */
+a:visited	{color: #000;}
+a:active	{color: #000;}
+a:focus		{color: #666;}
+a:hover		{color: #f00;}
+
+blockquote	{color:#000; font-size:12px}
+
+strong		{font-weight:bold;}
+em			{font-style:italic;}
+
+/* Images	*/
+
+
+/* Lists	*/
+ul
+ol			{list-style-type:decimal;}
+
+ul li		{	color: #000; font-size:12px;}
+ol li		{	color: #000; font-size:12px;}
+	
+dl
+dt
+dd
+
+
+/* Tables	*/
+
+table		{width: 100%;}
+
+tr
+.odd		{background-color:#eee;}
+.even		{background-color:#fff;}
+
+th			{font-weight:bold;}
+thread, th	{background: #ccc;}
+
+/**** tbody 
+
+th,td,caption	{	}
+caption		{	}
+
+tfoot		{	}
+****/
+.tfoot		{background-color:#ccc; text-align: center; font-style:italic;}
+
+caption		{background: #efefef;}
+	
+/*	Containers	*/
+/* Main image is 900X400 */
+/* #wrapper Image using is 901x303, no margin and auto so it gets ventered */
+/* Set the background color of wrapper to be white */
+#wrapper		{width:900px; margin:0px auto;background-color:#ffffff; }
+#wrapper2		{width:900px; margin:0px auto;background-color:#ffffff; }
+
+#top			{background-color:#000000;width: 100%;padding: 20px 0; overflow: hidden; 
+				border-bottom:1px #eeeeee solid;}
+/* 2.7 Put a line at the top      */
+/* #logo			{margin: 0 20px 0 100px;float: left;} */
+#logo			{margin: 0px 50px 0px 50px;float: left;}  /* top, right, botom, left */
+			
+/* 1.4.1 Move Social-media to right of logo */
+
+/* 2.1 Background dark grey, Clear to make sure it is just below and not up in social-media */
+#topnav			{background:#333333; clear: both;}
+
+/* 2.3 Format ul container. Width 100% use up all the space,float-keep to left, remove any margin space    */
+#topnav ul 		{width: 100%; float: left; margin: 0px;background-color:#333333; border-bottom:3px #cccccc solid;}
+/* 2.6 puts some lines around Nav object to make it stand out more     */
+
+
+/* 2.2 Align menus so they are beside each  */
+#topnav ul li	{display:inline;}
+
+/* 2.5 Add boxed around nav buttons so they stand out more     */
+#topnav ul li a	{float: left;padding:10px 20px;}
+
+/* 2.4 Change color of nav links. 5 states: Normal, Visited, Active (in process of being clicked on), Hover, Focus     */
+#topnav a:link		{color:#ffffff;} 
+#topnav a:visited 	{color:#ffffff;} 
+#topnav a:active 	{color:#ffffff;} 
+#topnav a:hover 	{color:#ffffff; background-color:#770000; } 
+#topnav a:focus 	{color:#ffffff;} 
+
+/* 2.6 puts some lines around Nav object to make it stand out more     */
+
+/******* altnav - Second level navigation bar *******/
+/* 2.1 Background dark grey, Clear to make sure it is just below and not up in social-media */
+#altnav 			{background:#333333; clear: both;}
+
+/* 2.3 Format ul container. Width 100% use up all the space,float-keep to left, remove any margin space    */
+#altnav ul 		{width: 100%; float: left; margin: 0px;background-color:#333333; border-bottom:3px #cccccc solid;}
+/* 2.6 puts some lines around Nav object to make it stand out more     */
+
+/* 2.2 Align menus so they are beside each  */
+#altnav ul li	{display:inline;}
+
+/* 2.5 Add boxed around nav buttons so they stand out more     */
+#altnav ul li a	{float: left;padding:10px 20px;}
+
+/* 2.4 Change color of nav links. 5 states: Normal, Visited, Active (in process of being clicked on), Hover, Focus     */
+#altnav a:link		{color:#ffffff;} 
+#altnav a:visited 	{color:#ffffff;} 
+#altnav a:active 	{color:#ffffff;} 
+#altnav a:hover 	{color:#ffffff; background-color:#770000;} 
+#altnav a:focus 	{color:#ffffff;} 
+
+/* 2.6 puts some lines around Nav object to make it stand out more     */
+/**************/
+
+/* <PAN-081316 - Added what's between {}. Lost #wrapper settings when used extends/block */
+/* #banner			{width:900px; margin:0px auto;background-color:#ffffff;} */
+#banner
+
+/* 3.1 Make it look nice */
+/* <PAN-081316 - Added next line. Lost #wrapper settings when used extends/block */
+/* #subbanner		{width:900px; margin:0px auto;background-color:#ffffff;} */
+#subbanner		{width:900px; margin:0px auto;background-color:#ffffff;}
+#subbanner		{background-color: #555555;padding: 15px 0; overflow: hidden;}
+/* 3.2 Format char color, spacing  */
+#subbanner h3	{color:#ffffff;font-size:16px;font-weight:bold;text-align:center;line-height: 180%;}
+
+/* #contents		{float: left; width: 650px; padding:20px;} */
+#contents		{float: right; width: 650px; padding:20px;}
+#contents h1		{margin:0 0 20px 0; border-bottom:1px #777777 solid ; padding:20px 0;}
+#contents p		{margin:16px 0; line-height:160%;}
+#contents h2	{margin:20px 0 0 0;}
+#contents img	{padding:1px; border:1px #666666 solid;margin: 1px;}
+
+#contents1		{float: left; width: 900px; padding:20px;}
+#contents1 h1		{margin:0 0 20px 0; border-bottom:1px #777777 solid ; padding:20px 0;}
+#contents1 p		{margin:16px 0; line-height:160%;}
+#contents1 h2	{margin:20px 0 0 0;}
+#contents1 img	{padding:1px; border:1px #666666 solid;margin: 1px;}
+
+/* #rightside		{padding:20px;margin-left:675px;font-size:32Px;}
+#rightside	h2	{margin:20px 0 10px 0; }
+#rightside	p	{margin:8px 0 10px 0; line-height:160%;} */
+ 
+/* #rightside		{padding:20px;margin-left:675px;font-size:32Px;} */
+#rightside		{padding:20px;margin-right:675px;font-size:32Px;}
+#rightside	h2	{margin:20px 0 10px 0; }
+#rightside	p	{margin:8px 0 10px 0; line-height:160%;}
+ 
+#footer			{clear:both; background-color:#000000; padding:10px 0;}
+#footer p 		{text-align:center ;color:#ffffff;}
+
+/* #videos-rightsidebar	ul li	{color: #000000;background:#ffffff;font-size:14px;padding: 10px 0;}
+#videos-rightsidebar	p 		{text-align:left ;font-size:14px;padding:15px 0 0 0;} */
+#videos-rightsidebar	ul li a	 {font-style:italic; font-weight:bold;}
+#videos-rightsidebar	ul li	{color: #000000;background:#ffffff;font-size:14px;padding: 10px 0;}
+#videos-rightsidebar	p 		{font-style:normal; font-weight:bold; text-align:left ;font-size:14px;padding:15px 0 0 0;}
+
+#contact-rightsidebar	li	a	{font-style:italic; font-weight:bold;}
+#contact-rightsidebar	li		{color: #000000;background:#ffffff;font-size:14px;padding: 8px 0;}
+#contact-rightsidebar	p 		{text-align:left ;font-size:14px;padding:8px 0 0 0;}
+#contact-rightsidebar	a 		{text-align:left ;font-size:14px;padding:8px 0 0 0;}
+
+
+/* Layout Extra	*/
+
+/* Navigation Extra 	*/
+
+/* Forms for Contact Page	*/
+
+form	{text-align:left; margin: 20px;}
+
+label, submit, input, textarea{
+	border:0; padding: 0; margin: 0; background: none;
+	}
+	
+label {
+	float: left; width: 150px; margin-top:5px;
+	text-align:right; display:block;
+	}
+
+input, textarea{
+	border:1px #333 solid ; margin-left:10px; padding: 5px;}
+	
+input	{
+	width:280px;margin-bottom:16px;}
+
+textarea	{
+	width:280px;height:150px;margin-bottom:16px;}
+
+.submit	{
+		width:280px; height:25px;  
+		margin-left:160px; 
+		font-size:12px;}
+		
+br		{clear: left ;}
+
+/* Remove numbers from the Ordered List in Contact */
+#contact-form	ol {list-style-type:none }
+
+/* Please Wait Page */
+
+#counter		{float: left; width: 650px; padding:20px;}
+#counter h1		{margin:0 0 20px 0; border-bottom:1px #777777 solid ; padding:20px 0;}
+
+#counter  p		{margin:16px 0; line-height:160%;}
+
+#counter 		{margin:20px 0 0 0;font-size:24px;}
+
+#files		{float: left; width: 650px; padding:20px;}
+#files h1		{margin:0 0 20px 0; border-bottom:1px #777777 solid ; padding:20px 0;}
+
+#files  p		{margin:16px 0; line-height:160%;}
+
+#files 		{margin:20px 0 0 0;font-size:24px;}
+
+
+/* DOWNLOAD Page */
+#tableForm	{text-align:left; font-size:14px; margin: 20px; border-bottom:1px #777777 solid ; padding:20px 0;}
+#tableForm input {
+		width:100px;  
+		margin-left:20px;}
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 200px;
+  margin: 20px auto;
+  text-align: center;
+}
+/* #tableForm	form	{margin:0 0 20px 0;border-bottom:1px #777777 solid ; padding:20px 0;} */
+/**
+form1	{text-align:left; margin: 20px;}
+label1, name1, type1{
+	border:0; padding: 0; margin: 0; background: none;
+	}
+	
+label1 {
+	float: left; width: 150px; margin-top:5px;
+	text-align:right; display:block;
+	}
+
+name1{
+	border:1px #333 solid ; margin-left:10px; padding: 5px;}
+	
+type1	{
+	width:280px;margin-bottom:16px;}
+**/
+		
+
+/********************************************************************************************/
+
+

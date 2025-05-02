@@ -1,0 +1,35 @@
+{
+    "short_domain_name": "localhost:3000",
+    "domain_name": "http://localhost:3000",
+    "google_analytics_id": "NOT USED",
+    "authenicate_PhotosMenu": "false",
+    "authenicate_VideosMenu": "false",
+    "dropbox": 
+     {
+        "client_id": "76cq0cs436moebb",
+        "client_secret": "xzgtfosytm7bigc", 
+        "read_folder_throttle": "5", 
+        "read_file_throttle": "15" 
+    },
+    "onedrive": 
+     {
+        "client_id": "1d61c00f-eeec-4ba1-bf27-f325c56ca6d8",
+        "client_secret": "QcdeRFDB2n9H3Th1kqQ7OaZ", 
+        "read_folder_throttle": "5", 
+        "read_file_throttle": "5" 
+    },
+    "box": 
+     {
+        "client_id": "g80ngyor9cscqyidmmxvyoos3aew5ql6",
+        "client_secret": "0vbcy3MT6FNn70cpxYQXBdB6ZCJTRqTZ", 
+        "read_folder_throttle": "500", 
+        "read_file_throttle": "500" 
+    },
+    "drive": 
+     {
+        "client_id": "17115940540-f710qa7kt5f40d4f52har977k2u7pj3p.apps.googleusercontent.com",
+        "client_secret": "aXOdfSvPeU8pNqSFRnMipcNZ", 
+        "read_folder_throttle": "1250", 
+        "read_file_throttle": "1250" 
+    }
+}

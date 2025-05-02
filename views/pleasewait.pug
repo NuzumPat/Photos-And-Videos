@@ -1,0 +1,23 @@
+//- This page is used to wait for the download to complete.
+//- A socket connection is made to the server so the progress of the download can be displayed
+
+extends layout
+block content
+  script.
+    var config_domain_name = "http://localhost:3000";   // Configured automatically *** DO NOT CHANGE THIS COMMENT ***
+    var socket = io.connect(config_domain_name);    //
+    socket.on('counter', function(data){
+      //alert("counter received:" + data);
+      $('#counter').text(data);
+    });
+    socket.on('files', function(data){
+      //alert("counter received:" + data);
+      $('#files').text(data);
+    });
+
+  div#wrapper2
+    div#contents
+      h1 Wait for the Download to complete.
+    div#files
+    div#counter
+    include includes/footer.pug

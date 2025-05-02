@@ -1,0 +1,21 @@
+<div id="container"></div>
+script.
+   // We're going to loop here
+    $(function(){ // jQuery DOM ready
+        var navigationMenu = $("ul.navigation-menu");
+        navigationMenu.on("click", "a", disableLinks);  // Disable all menu items
+        function disableLinks(e) {
+            navigationMenu.find('a.navigation').css({
+                "pointer-events": "none",
+                "cursor": "default",
+                "color": "#aaa"
+             });
+            e.stopPropagation();
+            var level = 'm' + $(this).data('level');    // Append an 'm' so I know this came from navjs.pug
+            var url = '/navigation?level=' + escape(level); // Send this to the /router/photos.js
+            $.get(url, function (data) { 
+                $('body').html(data); // data = new HTML page to be loaded by browser
+            });
+        }
+        return false;
+    });

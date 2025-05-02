@@ -1,0 +1,5 @@
+# .gitignore files used to define what files to ignore
+.settings/
+.vscode/
+bin/
+node_modules/

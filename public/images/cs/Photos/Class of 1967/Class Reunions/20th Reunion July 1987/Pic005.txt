@@ -1,0 +1,3 @@
+{ 
+    "Title": "Friday Night Mixer - Bruce VanKirk, Karen Jackson, Dan Wingate"
+}
