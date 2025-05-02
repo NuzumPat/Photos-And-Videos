@@ -1,0 +1,482 @@
+wintersvillehs.com – DigitalOcean – Installation Process - Ubuntu 16.04 with Node.js 6.9.4 - 10/11/17 
+; Run "Cygwin64 Terminal" from Start Menu
+; Make sure directory set to mySite
+;https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
+https://www.digitalocean.com/
+Log In
+NuzumPat@msn.com
+password
+<Create Droplet>	; top right corner
+<Distributions><Ubuntu 16.04>
+; Don't click "<One-click apps><Node on 6.9.1>"; Does not support $5/mo option 
+;Choose a Size
+<Stardard><$5/mo>
+;Choose a data center region
+<New York><3>
+;Choose a hostname
+;Enter the Domain Name (without the .com) for this Droplet
+;wintersvillehs.com
+;512 MB Memory / 20 GB Disk / NYC3 - Ubuntu 16.04.1 x64
+<Create>	; At bottom of page.
+;An email will be sent to me with the following information
+; Replace IP Address with the new IP Address in this file
+IP Address: 159.203.76.225
+User Name: root
+Password:?????????
+; Enter IP@ and hostname into spreadsheet
+; Edit this file. Replace the old IP with the new IP & save
+; Log into new droplet
+Cygwin64    "5/10/2019 I now need to set up correct Path C:\cygwin64\home\nuzum"
+cd..	
+cd nuzum
+
+; https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04
+; 1 Root Login
+ssh root@159.203.76.225
+yes		; Enter 'yes' are you sure? 
+Password	; Copy/Paste password from email. Use Paste from top left corner control box
+Password	; current UNIX password for root. Use Paste from top left corner control box
+password	; enter new password. Copy from spreadsheet  
+password	; re-enter new password. Copy from spreadsheet  
+---------------- Create a ‘pat’ user -------------------
+; 2 Create a New User
+adduser pat
+<password>
+<password>
+<Enter><Enter><Enter><Enter><Enter><y>
+; 3 Root Privileges - As root, run this command to add your new user to the sudo group (substitute the highlighted word with your new user):
+gpasswd -a pat sudo
+exit
+; 4 Add Public Key Authentication 
+;;Generate a Key Pair
+-- This only needs to be done once on the PC --
+ssh-keygen
+-----------------------------------------------
+;;Copy the Public Key
+ssh-copy-id pat@159.203.76.225
+<password>
+;; output: Number of key(s) added: 1
+; 5 Configure SSH Daemon
+ssh root@159.203.76.225
+<password>
+nano /etc/ssh/sshd_config
+;;we need to find the line that looks like this:
+;; PermitRootLogin yes
+;; change yes to no
+--- <Ctrl-x> <Y> <Enter> -----
+;; 6 Reload SSH 
+service ssh restart
+exit
+ssh pat@159.203.76.225
+chmod 600 ~/.ssh/authorized_keys
+;; 7 Set up Firewall
+sudo ufw allow OpenSSH
+<password>
+sudo ufw enable
+<y>
+;---------Install Node.js -------------
+;https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubu	
+curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh && sudo bash nodesource_setup.sh && sudo apt-get install nodejs && nodejs --version
+exit
+------ Create Node.js Application   -----
+; Copy User Configuration Files
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\WintersvilleHS\configure.json" mySite/public/data/configure.json
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\WintersvilleHS\mysite.htpasswd" mySite/public/data/mysite.htpasswd
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\WintersvilleHS\users.htpasswd" mySite/public/data/users.htpasswd
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\WintersvilleHS\favicon.ico" mySite/public/data/favicon.ico
+; Copy app to droplet
+rsync -av -e 'ssh -p 22' mySite/ pat@159.203.76.225:mySite/ && ssh pat@159.203.76.225
+cd mySite && npm install && chmod +x bin/www && cd .. && free -m	
+; free memory	total=488, used=36, free 250, shared=2, buff/cache=210 available=421
+; free memory 	total=488, used=32, free 252, shared=2, buff/cache=204 available=425 - Without build-essential
+; free memory 	total=500096, used=37440, free 140572, shared=1900, buff/cache=322084 available=433008 - Without build-essential
+; 512Mfree mem.	total=448, used=39, free 244, shared=1, buff/cache=204 available=419- NodeJS with Droplet
+; 1G free mem.  total=992, used=44, free 364, shared=3, buff/cache=582 available=780- NodeJS with Droplet
+///bin/www		; app should start running (No privkey.pen)
+----------- Change DNS on Register.com
+;This only needs to be done once for a new Domain Name in Register.com
+Sign in to your Register.com account.
+Select the domain name that you want to use with your Droplet.
+Under DOMAIN NAME SYSTEM SERVERS (DNS SERVERS), enter the following nameservers into theNew DNS Server fields:
+ ns1.digitalocean.com
+ ns2.digitalocean.com
+ ns3.digitalocean.com
+<Continue>	; To save changed DNS
+Close Rigester.com window
+-------------DigitalOcean Setting up Host Name -----------------------
+; www.digitalocean.com; log-in; Networking; Select wintersvillehs.com
+; Change the IP@ to the new one
+Record A: 	@		159.203.76.225
+Record A: 	wintersvillehs.com	159.203.76.225	; I'm still not convinced I don't need this record
+Record CNAME	www		wintersvillehs.com.	; Must end in a period
+NS	ns1.digitalocean.com.
+NS	ns2.digitalocean.com.
+NS	ns3.digitalocean.com.
+;
+; in Browser http://159.203.76.225/:3000	; This should connect to website	
+; https://159.203.76.225/		; This should not connect to website
+; www.wintersvillehs.com:3000			; This should connect to website
+; If problems,
+//sudo apt-get install nmap
+//<password>
+//<Y>
+//nmap -p 22,80,443,3000 159.203.76.225
+//host wintersvillehs.com
+****************** How To Install Nginx on Ubuntu 16.04 ****************** 
+;https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04
+;
+;------ Step 1: Install Nginx -----
+;
+sudo apt-get update
+<password>
+sudo apt-get install nginx
+<y>
+; ----- Step 2: Adjust the Firewall -----
+sudo ufw app list
+;Available a;pplications:
+;  Nginx Full
+;  Nginx HTTP
+;  Nginx HTTPS
+;  OpenSSH
+; allow traffic on port 80.
+sudo ufw allow 'Nginx HTTP'
+sudo ufw status
+;  Status: active
+;
+;  To                         Action      From
+;  --                         ------      ----
+;  OpenSSH                    ALLOW       Anywhere                  
+;  Nginx HTTP                 ALLOW       Anywhere                  
+;  OpenSSH (v6)               ALLOW       Anywhere (v6)             
+;  Nginx HTTP (v6)            ALLOW       Anywhere (v6)
+;check with the systemd init system to make sure the service is running 
+systemctl status nginx
+;  Output
+;   nginx.service - A high performance web server and a reverse proxy server
+;     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+;     Active: active (running) since Mon 2016-04-18 16:14:00 EDT; 4min 2s ago
+;   Main PID: 12857 (nginx)
+;     CGroup: /system.slice/nginx.service
+;             12857 nginx: master process /usr/sbin/nginx -g daemon on; master_process on
+;             12858 nginx: worker process
+;
+; ************ How To Secure Nginx with Let's Encrypt on Ubuntu 16.04 ************
+;https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+;---- Step 1 — Installing Certbot ----
+; 1/25/2017 - Getting new certbot-auto - 
+wget https://dl.eff.org/certbot-auto
+chmod a+x ./certbot-auto
+sudo apt-get update
+sudo apt-get install software-properties-common
+;add the repository:
+sudo add-apt-repository ppa:certbot/certbot
+;You'll need to press ENTER to accept
+; update the package list to pick up the new repository's package information:
+sudo apt-get update
+;install Certbot
+sudo apt-get install python-certbot-nginx 
+y
+; Workaround - Don't have to do this,,, I think
+;sudo certbot --authenticator webroot --installer nginx
+;/home/pat
+; Version of Certbot
+;apt-cache show certbot
+;Y
+; ---- Step 2 — Setting up Nginx ----
+sudo nano /etc/nginx/sites-available/default
+; Copy/Paste
+------<Ctrl K> to delete all lines ------------
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name wintersvillehs.com www.wintersvillehs.com;
+    location ~ /.well-known {
+        allow all;
+    }
+}
+----Save & Exit --------------
+sudo nginx -t
+sudo systemctl reload nginx
+; ---- Step 3 — Updating the Firewall ----
+sudo ufw status
+;Output
+;  Status: active
+;
+;  To                         Action      From
+;  --                         ------      ----
+;  OpenSSH                    ALLOW       Anywhere                  
+;  Nginx HTTP                 ALLOW       Anywhere                  
+;  OpenSSH (v6)               ALLOW       Anywhere (v6)             
+;  Nginx HTTP (v6)            ALLOW       Anywhere (v6)
+; allow the "Nginx Full" profile and then delete the redundant "Nginx HTTP" profile allowance:
+sudo ufw allow 'Nginx Full'
+sudo ufw delete allow 'Nginx HTTP'
+sudo ufw status
+;Output
+;  Status: active
+;
+;  To                         Action      From
+;  --                         ------      ----
+;  OpenSSH                    ALLOW       Anywhere
+;  Nginx Full                 ALLOW       Anywhere
+;  OpenSSH (v6)               ALLOW       Anywhere (v6)
+;  Nginx Full (v6)            ALLOW       Anywhere (v6)
+;---- Step 4 — Obtaining an SSL Certificate ----
+; ** NEW sudo ./certbot-auto --nginx -d wintersvillehs.com -d www.wintersvillehs.com
+; ** OLD sudo certbot --nginx -d wintersvillehs.com -d www.wintersvillehs.com
+sudo ./certbot-auto --nginx -d wintersvillehs.com -d www.wintersvillehs.com
+; enter an email address and agree to the terms of service.
+nuzumpat@msn.com
+; Output
+; Please choose whether HTTPS access is required or optional.
+; -------------------------------------------------------------------------------
+; 1: Easy - Allow both HTTP and HTTPS access to these sites
+; 2: Secure - Make all requests redirect to secure HTTPS access
+; -------------------------------------------------------------------------------
+; Select the appropriate number [1-2] then [enter] (press 'c' to cancel):
+2
+;----- Step 5 — Updating Diffie-Hellman Parameters -----
+; create a new dhparam.pem file and adding it to our server block.
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+sudo nano /etc/nginx/sites-available/default
+;1/19/2019 Replace the ssl_dhparam line. OLD:Paste the following line anywhere within the server block:
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+----Save & Exit --------------
+sudo nginx -t
+sudo systemctl reload nginx
+;----- Step 6 — Setting Up Auto Renewal ------
+sudo crontab -e
+; Paste in the last line
+15 3 * * * /usr/bin/certbot renew --quiet
+----Save & Exit --------------
+sudo cp /etc/letsencrypt/live/wintersvillehs.com/privkey.pem  mySite/public/data/privkey.pem
+sudo cp /etc/letsencrypt/live/wintersvillehs.com/cert.pem  mySite/public/data/cert.pem
+sudo cp /etc/letsencrypt/live/wintersvillehs.com/chain.pem  mySite/public/data/chain.pem
+sudo cp /etc/letsencrypt/live/wintersvillehs.com/fullchain.pem  mySite/public/data/fullchain.pem
+; 1/19/2019 Provide Read/Write permission on these files
+sudo chmod 666 ~/mySite/public/data/privkey.pem
+sudo chmod 666 ~/mySite/public/data/cert.pem
+sudo chmod 666 ~/mySite/public/data/chain.pem
+sudo chmod 666 ~/mySite/public/data/fullchain.pem
+
+********** Step 3: Configure TLS/SSL on Web Server (Nginx) **********
+;create a new Nginx configuration snippet 
+sudo nano /etc/nginx/snippets/ssl-wintersvillehs.com.conf
+; Paste followig lines
+ssl_certificate /etc/letsencrypt/live/wintersvillehs.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/wintersvillehs.com/privkey.pem;
+---- Save & exit --------------
+------- Create a Configuration Snippet with Strong Encryption Settings ----------
+sudo nano /etc/nginx/snippets/ssl-params.conf
+-----Copy / Paste --------
+# from https://cipherli.st/
+# and https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html
+
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+ssl_prefer_server_ciphers on;
+ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+ssl_ecdh_curve secp384r1;
+ssl_session_cache shared:SSL:10m;
+ssl_session_tickets off;
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver 8.8.8.8 8.8.4.4 valid=300s;
+resolver_timeout 5s;
+# Disable preloading HSTS for now.  You can use the commented out header line that includes
+# the "preload" directive if you understand the implications.
+#add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+add_header Strict-Transport-Security "max-age=63072000; includeSubdomains";
+add_header X-Frame-Options DENY;
+add_header X-Content-Type-Options nosniff;
+
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+----  Save & Exit -----
+-------- Adjust the Nginx Configuration to Use SSL & Reverse Proxy port 3000 -----------
+sudo nano /etc/nginx/sites-available/default
+----- Copy / Paste   -----
+; Delete everything from old file Cntl K per line
+-----Copy / Paste -----------
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name wintersvillehs.com www.wintersvillehs.com;
+
+    return 301 https://$server_name$request_uri;
+
+    location ~ /.well-known {
+        allow all;
+    }
+}
+# SSL configuration
+#
+server {
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+
+    include snippets/ssl-wintersvillehs.com.conf;
+    include snippets/ssl-params.conf;
+
+    server_name wintersvillehs.com www.wintersvillehs.com;
+
+    location / {
+        proxy_pass https://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+------ save & Exit----
+; Check for syntax errors
+sudo nginx -t
+sudo systemctl reload nginx
+--- (Alternative Configuration) Allow Both HTTP and HTTPS Traffic ----
+;I did not so this. Not needed I think
+----- Adjust the Firewall ----------------
+sudo ufw status && sudo ufw allow 'Nginx Full' && sudo ufw delete allow 'Nginx HTTP' && sudo ufw status
+---------- Enabling the Changes in Nginx ----------------
+; Permit traffic to Ngnix through firewall 
+sudo service nginx restart && sudo ufw allow 'Nginx Full'
+----------------- Create Service so starts on a reboot ---------
+;PM2
+;https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04 
+cd mySite && nano www.sh
+------ Copy/Paste----
+npm start DEBUG_FD=2 node bin/www 2>>mysiteDebug.log
+------ Exit & Save -----
+chmod +x www.sh && sudo npm install -g pm2 && pm2 start ./www.sh && pm2 startup systemd
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u pat --hp /home/pat && systemctl status pm2
+pm2 list
+; Test app via browser
+exit
+------------------------------------------
+--------------- THE END ------------------
+------------------------------------------
+;Verify Certbot (Certificate reknewal) will work 
+ssh pat@159.203.76.225
+sudo certbot renew --dry-run --preferred-challenges http-01,dns-01
+
+----- Send project to server------
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs\configure.json" mySite/public/data/configure.json
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs\mysite.htpasswd" mySite/public/data/mysite.htpasswd
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs\users.htpasswd" mySite/public/data/users.htpasswd
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs\txt_contact_contents.pug" mySite/public/images/cs/txt_contact_contents.pug
+rsync -av -e 'ssh -p 22' mySite/ pat@159.203.76.225:mySite/
+ssh pat@159.203.76.225
+; Just configure.json
+rsync -av -e 'ssh -p 22' mySite/public/data/configure.json pat@159.203.76.225:mySite/public/data/configure.json
+rsync -av -e 'ssh -p 22' mySite/public/data/users.htpasswd pat@159.203.76.225:mySite/public/data/users.htpasswd
+rsync -av -e 'ssh -p 22' mySite/public/data/mysite.htpasswd pat@159.203.76.225:mySite/public/data/mysite.htpasswd
+rsync -av -e 'ssh -p 22' mySite/public/data/favicon.ico pat@159.203.76.225:mySite/public/data/favicon.ico
+
+rsync -av -e 'ssh -p 22' mySite/bin/www pat@159.203.76.225:mySite/bin/www
+rsync -av -e 'ssh -p 22' mySite/public/images/cs/*.pug pat@159.203.76.225:mySite/public/images/cs
+rsync -av -e 'ssh -p 22' mySite/public/js/buildJadeFiles.js pat@159.203.76.225:mySite/public/js/buildJadeFiles.js
+rsync -av -e 'ssh -p 22' mySite/public/js/auth.js pat@159.203.76.225:mySite/public/js/auth.js
+rsync -av -e 'ssh -p 22' mySite/app.js pat@159.203.76.225:mySite/app.js
+rsync -av -e 'ssh -p 22' mySite/routes/videos.js pat@159.203.76.225:mySite/routes/videos.js
+rsync -av -e 'ssh -p 22' mySite/routes/contact.js pat@159.203.76.225:mySite/routes/contact.js
+rsync -av -e 'ssh -p 22' mySite/public/js/configure.js pat@159.203.76.225:mySite/public/js/configure.js
+rsync -av -e 'ssh -p 22' mySite/public/js/auth.js pat@159.203.76.225:mySite/public/js/auth.js
+rsync -av -e 'ssh -p 22' mySite/routes/pleasewait.js pat@159.203.76.225:mySite/routes/pleasewait.js
+rsync -av -e 'ssh -p 22' mySite/public/js/download_cs.js pat@159.203.76.225:mySite/public/js/download_cs.js
+ssh pat@159.203.76.225
+pm2 restart www
+exit
+
+; User Guide
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs\UsersGuide.pdf" mySite/public/data/UsersGuide.pdf
+rsync -av -e 'ssh -p 22' mySite/public/data/UsersGuide.pdf pat@159.203.76.225:mySite/public/data/UsersGuide.pdf
+
+; Sliders
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs.com\Photos04-900x300.jpg" mySite/public/images/cs/Photos04-900x300.jpg
+rsync -av -e 'ssh -p 22' mySite/public/images/cs/Photos04-900x300.jpg pat@159.203.76.225:mySite/public/images/cs/Photos04-900x300.jpg
+
+;Development Document
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs.com\02-MySite Architecture.pdf" 'mySite/public/images/cs/Photos/This website development/02-MySite Architecture.pdf'
+rsync -avzs -e 'ssh -p 22' 'mySite/public/images/cs/Photos/This website development/02-MySite Architecture.pdf' 'pat@159.203.76.225:mySite/public/images/cs/Photos/This website development/02-MySite Architecture.pdf'
+
+cp "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs.com\MySite Architecture.pdf" "mySite/public/images/cs/Photos/This website development/02 - Architecture/MySite Architecture.pdf"
+rsync -avzs -e 'ssh -p 22' 'mySite/public/images/cs/Photos/This website development/02 - Architecture/MySite Architecture.pdf' 'pat@159.203.76.225:mySite/public/images/cs/Photos/This website development/02 - Architecture/MySite Architecture.pdf'
+;;; IMPORTANT: When spaces are in folder or filename, use -avzs options
+
+rsync -av -e 'ssh -p 22' mySite/public/stylesheets/style.css pat@159.203.76.225:mySite/public/stylesheets/style.css
+
+;downloadResults.csv Make sure folder is /nuzum
+rsync -av -e 'ssh -p 22' pat@159.203.76.225:mySite/public/data/downloadResults.csv mySite/downloadResults.csv 
+cp mySite/downloadResults.csv "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\DEBUG Logs\NuzumPat\wintersvillehs\downloadResults-wintersvillehs.csv"
+
+;mysiteDebug.log
+rsync -av -e 'ssh -p 22' pat@159.203.76.225:mySite/mysiteDebug.log mySite/mysiteDebug.log
+cp mySite/mysiteDebug.log "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\DEBUG Logs\NuzumPat\wintersvillehs\mysiteDebug-wintersvillehs.log"
+
+----- Delete wintersvillehs.comDebug.log -----
+ssh pat@159.203.76.225
+rm mySite/mysiteDebug.log
+sudo reboot
+;Password
+----- Delete downloadResults.cs -----
+ssh pat@159.203.76.225
+rm mySite/public/data/downloadResults.csv
+
+---- Display nginx/error.log 
+ssh pat@159.203.76.225
+sudo cat /var/log/nginx/error.log
+
+----------------------------------------------------------------------------
+--------------- Change Photos &/or Videos UserName and Password    ---------
+----------------------------------------------------------------------------
+----- Win10 Excel:Open MysiteConfigurations.xlsx  ---- 
+; Save new UserName and Password in spreadsheet row for this website
+---- Win10 Run "Htpaasswd Genertor Lite"
+<User files><Open><C:\cygwin64\home\nuzum\mySite\public\data\mysite.htpasswd>
+<Double Click first user to edit this record>
+<Enter new User Name>
+<Change Password><Enter new password><OK><File><Save All><X Close Screen>
+Cygwin64
+cp mySite/public/data/mysite.htpasswd "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs.com\mysite.htpasswd"
+rsync -av -e 'ssh -p 22' mySite/public/data/mysite.htpasswd pat@159.203.76.225:mySite/public/data/mysite.htpasswd
+ssh pat@159.203.76.225
+pm2 restart www
+exit
+exit
+----------------------------------------------------------------------------
+--------------- Change DOWNLOAD UserName and Password    ---------
+----------------------------------------------------------------------------
+----- Win10 Excel:Open MysiteConfigurations.xlsx  ---- 
+; Save new UserName and Password in spreadsheet row for this website
+---- Win10 Run "Htpaasswd Genertor Lite"
+<User files><Open><C:\cygwin64\home\nuzum\mySite\public\data\users.htpasswd>
+<Double Click first user to edit this record>
+<Enter new User Name>
+<Change Password><Enter new password><OK><File><Save All><X Close Screen>
+Cygwin64
+cp mySite/public/data/users.htpasswd "G:\My Drive\MyDocuments\Home & Garden\Home\Web Development\Photos&Videos Website\Manage Websites\User Configuration File\wintersvillehs.com\users.htpasswd"
+rsync -av -e 'ssh -p 22' mySite/public/data/users.htpasswd pat@159.203.76.225:mySite/public/data/users.htpasswd
+ssh pat@159.203.76.225
+pm2 restart www && exit
+exit
+
+; Copy layout.pug and slider.pug
+rsync -av -e 'ssh -p 22' mySite/views/layout.pug pat@159.203.76.225:mySite/views/layout.pug
+rsync -av -e 'ssh -p 22' mySite/views/includes/slider.pug pat@159.203.76.225:mySite/views/includes/slider.pug
+ssh pat@159.203.76.225
+pm2 restart www
+exit
+------------------- contact.js ---
+rsync -av -e 'ssh -p 22' mySite/routes/contact.js pat@159.203.76.225:mySite/routes/contact.js
+ssh pat@159.203.76.225
+sudo reboot
+------------- Class of 1967 deceased list -----------------
+rsync -av -e 'ssh -p 22' mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-1'.jpg pat@159.203.76.225:mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-1'.jpg
+
+rsync -av -e 'ssh -p 22' mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-2'.jpg pat@159.203.76.225:mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-2'.jpg
+
+rsync -av -e 'ssh -p 22' mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-3'.jpg pat@159.203.76.225:mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-3'.jpg
+
+rsync -av -e 'ssh -p 22' mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-4'.jpg pat@159.203.76.225:mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-4'.jpg
+
+rsync -av -e 'ssh -p 22' mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-5'.jpg pat@159.203.76.225:mySite/public/images/cs/Photos/'Class of 1967'/Deceased/'WHS 67-5'.jpg
+
