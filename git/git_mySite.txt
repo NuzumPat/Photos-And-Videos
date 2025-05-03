@@ -1,0 +1,100 @@
+# 'Photos-And-Videos' Webserver Git Command file
+# This file is used to send commands to Git Bash for the 
+# run 'Git Bash' from Start
+# 
+cd c:/Users/nuzum/Documents/VSCode/mySite # this is the root of the Repository
+
+git config --global user.name "Pat Nuzum"
+git config --global user.email NuzumPat@msn.com
+# Branch Name - Start with Main
+git config --global init.default branch Master
+# config Help
+git config -h
+# Clear screen
+Clear
+# Change the directory to where we want to source safe our software
+cd c:/Users/nuzum/Documents/VSCode/mySite
+# Creates a .git folder, which is the Repository, after git init.
+git init #Create an empty Git repository or reinitialize an existing one
+
+# display status. branch is "Master"
+git status
+# Ignore files and folders
+# .gitignore create text file to contains what files are to be ignores
+# include .vscode/,bin/,node_modules/
+
+# now ‘track’/add all the other files
+git add .
+# many warnings changing LF with CRLF
+git status	# shows all files in 'green'
+# First commit of all files to Repository
+git commit -m "First commit - Commit all files to Repository"
+# create mode 100644 for all files
+
+# connect local git to GitHub Account
+git remote add origan https://github.com/NuzumPat/Photos-And-Videos.git
+git branch -M Master
+# copy all files to GitHub
+git push -u origan Master
+# counting object 100% (6503/6503), done
+# writing objects: 100% 754.82 M1B 13.47 M1B/s done
+# branch 'Master' set up to track 'origan/Master'
+# Master has WintersvilleHS.com Photos and Videos
+
+# add WintersvilleHS.com–DigitalOcean–Installation Process-Ubuntu 16-04 NodeJS 6-9-4.txt to DigitalOceans folder
+git add DigitalOceans/InstallationProcess.txt
+git commit -m "DigitalOceans Instalation to Repository"
+git push -u origan Master
+ 
+# 3 states of a file
+# Working - all files added or have been committed, but not changed
+# Staging - Staged means that you have marked a modified file in its current version to go into your next commit snapshot
+# Commit - Committed means that the data is safely stored in your local database.
+# modified InstallationProcess with todays date
+# this file is now in the Staging mode(Modified in red)
+# commit -a(all) -m(message) "message"
+git commit -a -m "modified InstallationProcess with todays date"
+# upload to GitHub
+git push -u origan Master
+# after changed to a file have been made, you can see the difference between ther 2 files
+git diff
+# if you want to remove a file after it has been staged
+git restore --staged filename
+# only files in the Staging State can be Committed 
+# to bypass the Staging State and directly Commit all files changed
+git commit -a -m "message"
+# if only 1 file changes and you want to commit it with a comment
+git commit -m "message"
+# to review all commits
+git log
+git log --oneline
+# to get help git command -h or git help command (open browser webpage
+git help commit
+# if you want to get back to one of the commits
+# git reset (hash tag) from single line log
+# Set up another branch to make changes and testing before adding it back in the Master branch
+git branch (name of new branch)
+git branch # to see all branches
+git switch (branch name) # changes only made to this branch
+git commit -a -m "changed date to 5/3/25"
+git switch Master # switch back to Master branch
+# bring changes back to Master
+git merge -m "Merge Installation branch back into Master" Installation 
+git branch -d Installation # to delete a branch
+git switch -c Branch01 # create a new branch and switch to new branch
+git pull # fetch merge. copy changes made in GitHub to local PC
+# cheat sheet: https://education.github.com/git-cheat-sheet-education.pdf
+
+
+git add git/ # added this file to the repository. 
+# there is no easy way to add files from outside this folder , the folder the 'git init' was done on.
+
+
+
+
+
+
+
+
+
+
